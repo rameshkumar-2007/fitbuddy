@@ -1,0 +1,14 @@
+{% extends "base.html" %}{% block title %}FitBuddy – Build a plan{% endblock %}{% block content %}
+<section class="hero" aria-labelledby="page-title"><div class="hero-copy"><span class="eyebrow">FITNESS PLAN BUILDER</span><h1 id="page-title">Build a healthier weekly routine.</h1><p>Share your goal and preferred intensity to create a practical 7-day movement plan with recovery guidance.</p></div>
+<form class="card plan-form" action="/generate-workout" method="post">
+<h2>Your profile</h2>
+<div class="field"><label for="name">Name</label><div class="voice-field"><input id="name" name="name" autocomplete="name" required minlength="2" maxlength="100"><button class="voice-button" type="button" data-dictate="name" aria-label="Speak your name">Speak</button></div></div>
+<div class="grid"><div class="field"><label for="age">Age</label><input id="age" name="age" type="number" min="13" max="100" required></div><div class="field"><label for="weight">Weight (kg)</label><input id="weight" name="weight" type="number" min="20" max="500" step=".1" required></div></div>
+<div class="field"><label for="goal">Fitness goal</label><select id="goal" name="goal"><option value="general wellness">General wellness</option><option value="weight loss">Weight loss</option><option value="muscle gain">Muscle gain</option><option value="flexibility">Flexibility</option></select></div>
+<div class="field"><label for="intensity">Workout intensity</label><select id="intensity" name="intensity"><option>low</option><option selected>medium</option><option>high</option></select></div>
+<div class="field"><label for="voice-language">Plan and voice language</label><select id="voice-language" name="language">{% for code, name in languages %}<option value="{{ code }}"{% if code == language|default('en-US') %} selected{% endif %}>{{ name }}</option>{% endfor %}</select><small>Speech options depend on the voices available on your device.</small></div>
+<button class="primary-action">Generate 7-day plan</button><small>For users under 18, plans emphasize healthy movement, recovery, balanced meals, and sleep.</small>
+<p class="voice-status" data-voice-status role="status" aria-live="polite"></p>
+</form></section>
+{% include "_visual_references.html" %}
+{% endblock %}
